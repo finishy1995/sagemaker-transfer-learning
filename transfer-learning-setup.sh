@@ -11,6 +11,7 @@ echo
 # Install MXNet, awscli
 pip install mxnet
 pip install awscli
+pip install opencv-python
 echo
 
 # Setup metadata, meta lst file
@@ -18,5 +19,4 @@ python setup.py
 echo "Data set setup successfully."
 
 # Create custom dataset using mxnet
-python lst_handler.py train 1000 1000 1000 300
-python lst_handler.py val 100 100 100 30
+python lst_handler.py train 1200 1000 1200 300 0.9
