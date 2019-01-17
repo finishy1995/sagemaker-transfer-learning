@@ -13,13 +13,15 @@ pip install mxnet
 pip install awscli
 echo
 
+# Create a new S3 bucket
+bucket=sagemaker-data-labeling-$(date "+%Y%m%d%H")-$RANDOM
+echo $bucket >> buckets.ls
+
 # Setup metadata, Ground Truth input data
-python setup.py
+python setup.py $bucket
 echo "Data set setup successfully."
 
 # Upload Images and input data (Ground Truth required json list) to Amazon S3
-bucket=sagemaker-data-labeling-$(date "+%Y%m%d%H")-$RANDOM
-echo $bucket >> buckets.ls
 aws s3api create-bucket --bucket $bucket
 aws s3 cp ./ s3://$bucket/ --recursive --exclude "*" --include "bird/*" --include "car/*" --include "flower/*" --include "plane/*" --include "data.json"
 echo

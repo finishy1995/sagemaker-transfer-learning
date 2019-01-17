@@ -1,5 +1,6 @@
 import os
 import json
+import sys
 from lst_handler import write_lst
 
 def init():
@@ -58,8 +59,11 @@ def init():
 	with open('metadata.json', 'w') as file:
 		file.write(metadata_json)
 	manifest_json = ''
+	data_bucket_name = "tmp"
+	if sys.argv[1]:
+		data_bucket_name = sys.argv[1]
 	for item in manifest:
-		key = "s3://davwan-dataset/" + item
+		key = "s3://" + data_bucket_name + "/" + item
 		item_json = {"source-ref": key}
 		manifest_json += json.dumps(item_json, sort_keys=True, separators=(',', ': ')) + '\n'
 	with open('data.json', 'w') as file:
